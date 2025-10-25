@@ -1,41 +1,48 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Theme colors and fonts for Kusile Group Portal
+ * Colors are based on https://www.summitins.insure/
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const primaryBlue = '#002147'; // main dark blue
+const goldAccent = '#d4af37'; // gold accent
+const lightGray = '#f8f8f8';   // background light gray
+const textDark = '#11181C';    // primary text
+const textLight = '#fff';      // white text
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
+    text: textDark,
+    background: lightGray,
+    tint: primaryBlue,
     icon: '#687076',
     tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    tabIconSelected: primaryBlue,
+    primary: primaryBlue,
+    accent: goldAccent,
+    card: '#fff',
+    border: '#e0e0e0',
   },
   dark: {
-    text: '#ECEDEE',
+    text: textLight,
     background: '#151718',
-    tint: tintColorDark,
+    tint: primaryBlue,
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    tabIconSelected: primaryBlue,
+    primary: primaryBlue,
+    accent: goldAccent,
+    card: '#1f1f1f',
+    border: '#333',
   },
 };
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
