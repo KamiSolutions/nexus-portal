@@ -18,7 +18,7 @@ export default function LoginScreen() {
 
     // TODO: Replace with real authentication
     // For now, redirect to dashboard
-    router.push('/dashboard');
+    router.push('/home');
   };
 
   return (
