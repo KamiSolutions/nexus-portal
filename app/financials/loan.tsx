@@ -1,85 +1,128 @@
 // File: app/financials/loan.tsx
 import React, { useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
+import { Colors } from '../../constants/theme';
 import FileUpload from '../components/FileUpload';
 
-type Loan = {
+// Borrower model (local representation)
+type Borrower = {
   id: number;
-  borrower: string;
-  amount: number;
-  date: string;
-  status: 'Approved' | 'Pending' | 'Rejected';
+  full_name: string;
+  email: string;
+  phone_number: string;
+  amount_requested: number;
+  purpose: string;
+  repayment_period: string;
+  created_at: string;
 };
 
-export default function LoansScreen() {
-  const [loans, setLoans] = useState<Loan[]>([
-    { id: 1, borrower: 'John Doe', amount: 5000, date: '2025-10-01', status: 'Approved' },
-    { id: 2, borrower: 'Jane Smith', amount: 12000, date: '2025-10-05', status: 'Pending' },
-    { id: 3, borrower: 'Mike Johnson', amount: 8000, date: '2025-10-10', status: 'Approved' },
-    { id: 4, borrower: 'Sarah Lee', amount: 15000, date: '2025-10-12', status: 'Rejected' },
-  ]);
+export default function BorrowerScreen() {
+  const [borrowers, setBorrowers] = useState<Borrower[]>([]);
+  const [newBorrower, setNewBorrower] = useState({
+    full_name: '',
+    email: '',
+    phone_number: '',
+    amount_requested: '',
+    purpose: '',
+    repayment_period: '',
+  });
 
-  const [newLoan, setNewLoan] = useState({ borrower: '', amount: '', date: '' });
+  const handleAddBorrower = () => {
+    const { full_name, email, phone_number, amount_requested, purpose, repayment_period } = newBorrower;
 
-  const totalLoansThisMonth = loans.length;
-
-  const handleAddLoan = () => {
-    if (!newLoan.borrower || !newLoan.amount || !newLoan.date) {
-      Alert.alert('Error', 'Please fill all fields');
+    if (!full_name || !email || !phone_number || !amount_requested || !purpose || !repayment_period) {
+      Alert.alert('Error', 'Please fill all fields before submitting');
       return;
     }
 
-    const loan: Loan = {
-      id: loans.length + 1,
-      borrower: newLoan.borrower,
-      amount: parseFloat(newLoan.amount),
-      date: newLoan.date,
-      status: 'Pending',
+    const borrower: Borrower = {
+      id: borrowers.length + 1,
+      full_name,
+      email,
+      phone_number,
+      amount_requested: parseFloat(amount_requested),
+      purpose,
+      repayment_period,
+      created_at: new Date().toISOString().split('T')[0],
     };
 
-    setLoans([loan, ...loans]);
-    setNewLoan({ borrower: '', amount: '', date: '' });
+    setBorrowers([borrower, ...borrowers]);
+    setNewBorrower({
+      full_name: '',
+      email: '',
+      phone_number: '',
+      amount_requested: '',
+      purpose: '',
+      repayment_period: '',
+    });
+
+    Alert.alert('Success', 'Borrower information submitted!');
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Loans</Text>
-      <Text style={styles.subtitle}>Total loans this month: {totalLoansThisMonth}</Text>
+      <Text style={styles.title}>Borrower Application Form</Text>
       <FileUpload />
 
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Borrower Name"
-          value={newLoan.borrower}
-          onChangeText={(text) => setNewLoan({ ...newLoan, borrower: text })}
+          placeholder="Full Name"
+          value={newBorrower.full_name}
+          onChangeText={(t) => setNewBorrower({ ...newBorrower, full_name: t })}
         />
         <TextInput
           style={styles.input}
-          placeholder="Amount (ZAR)"
-          value={newLoan.amount}
-          onChangeText={(text) => setNewLoan({ ...newLoan, amount: text })}
+          placeholder="Email Address"
+          keyboardType="email-address"
+          value={newBorrower.email}
+          onChangeText={(t) => setNewBorrower({ ...newBorrower, email: t })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          keyboardType="phone-pad"
+          value={newBorrower.phone_number}
+          onChangeText={(t) => setNewBorrower({ ...newBorrower, phone_number: t })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Amount Requested (ZAR)"
           keyboardType="numeric"
+          value={newBorrower.amount_requested}
+          onChangeText={(t) => setNewBorrower({ ...newBorrower, amount_requested: t })}
         />
         <TextInput
           style={styles.input}
-          placeholder="Date (YYYY-MM-DD)"
-          value={newLoan.date}
-          onChangeText={(text) => setNewLoan({ ...newLoan, date: text })}
+          placeholder="Purpose of Loan"
+          multiline
+          numberOfLines={3}
+          value={newBorrower.purpose}
+          onChangeText={(t) => setNewBorrower({ ...newBorrower, purpose: t })}
         />
-        <TouchableOpacity style={styles.button} onPress={handleAddLoan}>
-          <Text style={styles.buttonText}>Add Loan</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Repayment Period (in months)"
+          keyboardType="numeric"
+          value={newBorrower.repayment_period}
+          onChangeText={(t) => setNewBorrower({ ...newBorrower, repayment_period: t })}
+        />
+
+        <TouchableOpacity style={styles.button} onPress={handleAddBorrower}>
+          <Text style={styles.buttonText}>Submit Borrower Info</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.listContainer}>
-        {loans.map((loan) => (
-          <View key={loan.id} style={styles.loanCard}>
-            <Text style={styles.loanText}>Borrower: {loan.borrower}</Text>
-            <Text style={styles.loanText}>Amount: ZAR {loan.amount.toLocaleString()}</Text>
-            <Text style={styles.loanText}>Date: {loan.date}</Text>
-            <Text style={styles.loanText}>Status: {loan.status}</Text>
+        {borrowers.map((b) => (
+          <View key={b.id} style={styles.card}>
+            <Text style={styles.cardText}>Name: {b.full_name}</Text>
+            <Text style={styles.cardText}>Email: {b.email}</Text>
+            <Text style={styles.cardText}>Phone: {b.phone_number}</Text>
+            <Text style={styles.cardText}>Amount: ZAR {b.amount_requested.toLocaleString()}</Text>
+            <Text style={styles.cardText}>Repayment: {b.repayment_period} months</Text>
+            <Text style={styles.cardText}>Purpose: {b.purpose}</Text>
+            <Text style={styles.cardText}>Date: {b.created_at}</Text>
           </View>
         ))}
       </View>
@@ -88,35 +131,16 @@ export default function LoansScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    flexGrow: 1,
-    backgroundColor: Colors.light.background,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    fontFamily: Fonts.web?.sans || 'system-ui',
-    color: Colors.light.tint,
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 18,
-    fontFamily: Fonts.web?.sans || 'system-ui',
-    color: Colors.light.text,
-    marginBottom: 20,
-  },
-  formContainer: {
-    marginBottom: 20,
-  },
+  container: { padding: 20, flexGrow: 1, backgroundColor: Colors.light.background },
+  title: { fontSize: 28, fontWeight: 'bold', color: Colors.light.tint, marginBottom: 10 },
+  formContainer: { marginBottom: 20 },
   input: {
     borderWidth: 1,
     borderColor: Colors.light.tint,
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    fontFamily: Fonts.web?.sans || 'system-ui',
-    fontSize: 16,
+    backgroundColor: '#fff',
   },
   button: {
     backgroundColor: Colors.light.tint,
@@ -124,16 +148,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
   },
-  buttonText: {
-    color: '#fff',
-    fontFamily: Fonts.web?.sans || 'system-ui',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  listContainer: {
-    marginTop: 20,
-  },
-  loanCard: {
+  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  listContainer: { marginTop: 20 },
+  card: {
     padding: 15,
     marginBottom: 15,
     borderRadius: 8,
@@ -141,9 +158,5 @@ const styles = StyleSheet.create({
     borderLeftWidth: 5,
     borderLeftColor: Colors.light.tint,
   },
-  loanText: {
-    fontSize: 16,
-    fontFamily: Fonts.web?.sans || 'system-ui',
-    color: Colors.light.text,
-  },
+  cardText: { fontSize: 16 },
 });

@@ -14,7 +14,7 @@ export default function HomeScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Welcome to Kusile Group Portal</Text>
+      <Text style={styles.title}>Welcome to Summit Life Group Portal</Text>
       <Text style={styles.subtitle}>
         Your unified internal management platform for finance, HR, vehicles, and leases — all in one secure and simple place.
       </Text>

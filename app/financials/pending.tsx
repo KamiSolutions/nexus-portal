@@ -1,83 +1,66 @@
 // File: app/financials/pending.tsx
 import React, { useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
+import { Colors } from '../../constants/theme';
 import FileUpload from '../components/FileUpload';
 
-type PendingRequest = {
+// PurchaseRequisitionApproval model
+type PurchaseRequisitionApproval = {
   id: number;
-  description: string;
-  amount: number;
-  date: string;
-  status: 'Pending' | 'Processing' | 'Needs Approval';
+  requisition_id: number;
+  approver: string;
+  status: 'Pending' | 'Approved' | 'Declined';
+  created_at: string;
+  updated_at: string;
 };
 
-export default function PendingRequestsScreen() {
-  const [requests, setRequests] = useState<PendingRequest[]>([
-    { id: 1, description: 'Loan Application - John Doe', amount: 5000, date: '2025-10-03', status: 'Pending' },
-    { id: 2, description: 'Loan Application - Jane Smith', amount: 7500, date: '2025-10-06', status: 'Processing' },
+export default function PendingApprovalsScreen() {
+  const [approvals, setApprovals] = useState<PurchaseRequisitionApproval[]>([
+    { id: 1, requisition_id: 1, approver: 'Manager A', status: 'Pending', created_at: '2025-10-01', updated_at: '2025-10-02' },
   ]);
 
-  const [newRequest, setNewRequest] = useState({ description: '', amount: '', date: '' });
+  const [newApproval, setNewApproval] = useState({ requisition_id: '', approver: '' });
 
-  const totalRequests = requests.length;
-
-  const handleAddRequest = () => {
-    if (!newRequest.description || !newRequest.amount || !newRequest.date) {
+  const handleAddApproval = () => {
+    if (!newApproval.requisition_id || !newApproval.approver) {
       Alert.alert('Error', 'Please fill all fields');
       return;
     }
 
-    const request: PendingRequest = {
-      id: requests.length + 1,
-      description: newRequest.description,
-      amount: parseFloat(newRequest.amount),
-      date: newRequest.date,
+    const approval: PurchaseRequisitionApproval = {
+      id: approvals.length + 1,
+      requisition_id: parseInt(newApproval.requisition_id),
+      approver: newApproval.approver,
       status: 'Pending',
+      created_at: new Date().toISOString().split('T')[0],
+      updated_at: new Date().toISOString().split('T')[0],
     };
 
-    setRequests([request, ...requests]);
-    setNewRequest({ description: '', amount: '', date: '' });
+    setApprovals([approval, ...approvals]);
+    setNewApproval({ requisition_id: '', approver: '' });
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Pending Financial Requests</Text>
-      <Text style={styles.subtitle}>Total pending: {totalRequests}</Text>
+      <Text style={styles.title}>Pending Approvals</Text>
       <FileUpload />
 
       <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Description"
-          value={newRequest.description}
-          onChangeText={(text) => setNewRequest({ ...newRequest, description: text })}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Amount (ZAR)"
-          value={newRequest.amount}
-          onChangeText={(text) => setNewRequest({ ...newRequest, amount: text })}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Date (YYYY-MM-DD)"
-          value={newRequest.date}
-          onChangeText={(text) => setNewRequest({ ...newRequest, date: text })}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleAddRequest}>
-          <Text style={styles.buttonText}>Add Request</Text>
+        <TextInput style={styles.input} placeholder="Requisition ID" value={newApproval.requisition_id} onChangeText={(t) => setNewApproval({ ...newApproval, requisition_id: t })} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Approver Name" value={newApproval.approver} onChangeText={(t) => setNewApproval({ ...newApproval, approver: t })} />
+
+        <TouchableOpacity style={styles.button} onPress={handleAddApproval}>
+          <Text style={styles.buttonText}>Add Approval</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.listContainer}>
-        {requests.map((req) => (
-          <View key={req.id} style={styles.card}>
-            <Text style={styles.cardText}>Description: {req.description}</Text>
-            <Text style={styles.cardText}>Amount: ZAR {req.amount.toLocaleString()}</Text>
-            <Text style={styles.cardText}>Date: {req.date}</Text>
-            <Text style={styles.cardText}>Status: {req.status}</Text>
+        {approvals.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <Text style={styles.cardText}>Requisition ID: {item.requisition_id}</Text>
+            <Text style={styles.cardText}>Approver: {item.approver}</Text>
+            <Text style={styles.cardText}>Status: {item.status}</Text>
+            <Text style={styles.cardText}>Created: {item.created_at}</Text>
           </View>
         ))}
       </View>
@@ -87,13 +70,12 @@ export default function PendingRequestsScreen() {
 
 const styles = StyleSheet.create({
   container: { padding: 20, flexGrow: 1, backgroundColor: Colors.light.background },
-  title: { fontSize: 28, fontWeight: 'bold', fontFamily: Fonts.web?.sans || 'system-ui', color: Colors.light.tint, marginBottom: 10 },
-  subtitle: { fontSize: 18, fontFamily: Fonts.web?.sans || 'system-ui', color: Colors.light.text, marginBottom: 20 },
+  title: { fontSize: 28, fontWeight: 'bold', color: Colors.light.tint, marginBottom: 10 },
   formContainer: { marginBottom: 20 },
-  input: { borderWidth: 1, borderColor: Colors.light.tint, borderRadius: 8, padding: 10, marginBottom: 10, fontFamily: Fonts.web?.sans || 'system-ui', fontSize: 16 },
+  input: { borderWidth: 1, borderColor: Colors.light.tint, borderRadius: 8, padding: 10, marginBottom: 10 },
   button: { backgroundColor: Colors.light.tint, padding: 12, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontFamily: Fonts.web?.sans || 'system-ui', fontWeight: 'bold', fontSize: 16 },
+  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
   listContainer: { marginTop: 20 },
   card: { padding: 15, marginBottom: 15, borderRadius: 8, backgroundColor: '#f0f4f7', borderLeftWidth: 5, borderLeftColor: Colors.light.tint },
-  cardText: { fontSize: 16, fontFamily: Fonts.web?.sans || 'system-ui', color: Colors.light.text },
+  cardText: { fontSize: 16 },
 });

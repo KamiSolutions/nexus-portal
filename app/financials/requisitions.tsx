@@ -1,71 +1,66 @@
 // File: app/financials/index.tsx
 import React, { useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
+import { Colors } from '../../constants/theme';
 import FileUpload from '../components/FileUpload';
 
-type Requisition = {
+// PurchaseRequisition model
+type PurchaseRequisition = {
   id: number;
+  requester: string; // FK → employees.Employee (displaying name here)
   title: string;
-  amount: number;
-  date: string;
-  approved: boolean;
+  description: string;
+  amount_estimate: number;
+  created_at: string;
+  updated_at: string;
 };
 
 export default function RequisitionsScreen() {
-  const [requisitions, setRequisitions] = useState<Requisition[]>([
-    { id: 1, title: 'Stationery', amount: 1200, date: '2025-10-01', approved: true },
-    { id: 2, title: 'Office Chairs', amount: 4500, date: '2025-10-05', approved: false },
+  const [requisitions, setRequisitions] = useState<PurchaseRequisition[]>([
+    {
+      id: 1,
+      requester: 'John Doe',
+      title: 'Office Chairs',
+      description: 'Requisition for new chairs in HR department',
+      amount_estimate: 4500,
+      created_at: '2025-10-01',
+      updated_at: '2025-10-02',
+    },
   ]);
 
-  const [newReq, setNewReq] = useState({ title: '', amount: '', date: '' });
-
-  const totalRequisitions = requisitions.length;
+  const [newReq, setNewReq] = useState({ title: '', description: '', amount_estimate: '', requester: '' });
 
   const handleAddRequisition = () => {
-    if (!newReq.title || !newReq.amount || !newReq.date) {
+    if (!newReq.title || !newReq.description || !newReq.amount_estimate || !newReq.requester) {
       Alert.alert('Error', 'Please fill all fields');
       return;
     }
 
-    const req: Requisition = {
+    const req: PurchaseRequisition = {
       id: requisitions.length + 1,
+      requester: newReq.requester,
       title: newReq.title,
-      amount: parseFloat(newReq.amount),
-      date: newReq.date,
-      approved: false,
+      description: newReq.description,
+      amount_estimate: parseFloat(newReq.amount_estimate),
+      created_at: new Date().toISOString().split('T')[0],
+      updated_at: new Date().toISOString().split('T')[0],
     };
 
     setRequisitions([req, ...requisitions]);
-    setNewReq({ title: '', amount: '', date: '' });
+    setNewReq({ title: '', description: '', amount_estimate: '', requester: '' });
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Requisitions</Text>
-      <Text style={styles.subtitle}>Total requisitions: {totalRequisitions}</Text>
+      <Text style={styles.title}>Purchase Requisitions</Text>
       <FileUpload />
 
       <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Requisition Title"
-          value={newReq.title}
-          onChangeText={(text) => setNewReq({ ...newReq, title: text })}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Amount (ZAR)"
-          value={newReq.amount}
-          onChangeText={(text) => setNewReq({ ...newReq, amount: text })}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Date (YYYY-MM-DD)"
-          value={newReq.date}
-          onChangeText={(text) => setNewReq({ ...newReq, date: text })}
-        />
+        <TextInput style={styles.input} placeholder="Requester Name" value={newReq.requester} onChangeText={(t) => setNewReq({ ...newReq, requester: t })} />
+        <TextInput style={styles.input} placeholder="Title" value={newReq.title} onChangeText={(t) => setNewReq({ ...newReq, title: t })} />
+        <TextInput style={styles.input} placeholder="Description" value={newReq.description} onChangeText={(t) => setNewReq({ ...newReq, description: t })} />
+        <TextInput style={styles.input} placeholder="Amount Estimate (ZAR)" value={newReq.amount_estimate} onChangeText={(t) => setNewReq({ ...newReq, amount_estimate: t })} keyboardType="numeric" />
+
         <TouchableOpacity style={styles.button} onPress={handleAddRequisition}>
           <Text style={styles.buttonText}>Add Requisition</Text>
         </TouchableOpacity>
@@ -74,10 +69,11 @@ export default function RequisitionsScreen() {
       <View style={styles.listContainer}>
         {requisitions.map((req) => (
           <View key={req.id} style={styles.card}>
+            <Text style={styles.cardText}>Requester: {req.requester}</Text>
             <Text style={styles.cardText}>Title: {req.title}</Text>
-            <Text style={styles.cardText}>Amount: ZAR {req.amount.toLocaleString()}</Text>
-            <Text style={styles.cardText}>Date: {req.date}</Text>
-            <Text style={styles.cardText}>Approved: {req.approved ? 'Yes' : 'No'}</Text>
+            <Text style={styles.cardText}>Description: {req.description}</Text>
+            <Text style={styles.cardText}>Amount: ZAR {req.amount_estimate.toLocaleString()}</Text>
+            <Text style={styles.cardText}>Created: {req.created_at}</Text>
           </View>
         ))}
       </View>
@@ -87,13 +83,12 @@ export default function RequisitionsScreen() {
 
 const styles = StyleSheet.create({
   container: { padding: 20, flexGrow: 1, backgroundColor: Colors.light.background },
-  title: { fontSize: 28, fontWeight: 'bold', fontFamily: Fonts.web?.sans || 'system-ui', color: Colors.light.tint, marginBottom: 10 },
-  subtitle: { fontSize: 18, fontFamily: Fonts.web?.sans || 'system-ui', color: Colors.light.text, marginBottom: 20 },
+  title: { fontSize: 28, fontWeight: 'bold', color: Colors.light.tint, marginBottom: 10 },
   formContainer: { marginBottom: 20 },
-  input: { borderWidth: 1, borderColor: Colors.light.tint, borderRadius: 8, padding: 10, marginBottom: 10, fontFamily: Fonts.web?.sans || 'system-ui', fontSize: 16 },
+  input: { borderWidth: 1, borderColor: Colors.light.tint, borderRadius: 8, padding: 10, marginBottom: 10 },
   button: { backgroundColor: Colors.light.tint, padding: 12, borderRadius: 8, alignItems: 'center' },
-  buttonText: { color: '#fff', fontFamily: Fonts.web?.sans || 'system-ui', fontWeight: 'bold', fontSize: 16 },
+  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
   listContainer: { marginTop: 20 },
   card: { padding: 15, marginBottom: 15, borderRadius: 8, backgroundColor: '#f0f4f7', borderLeftWidth: 5, borderLeftColor: Colors.light.tint },
-  cardText: { fontSize: 16, fontFamily: Fonts.web?.sans || 'system-ui', color: Colors.light.text },
+  cardText: { fontSize: 16 },
 });
