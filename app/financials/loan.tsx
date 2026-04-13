@@ -1,8 +1,24 @@
+/**
+ * Loan Management Screen
+ * Employee loan requests and approvals
+ */
+/**
+ * Loan Management Screen
+ * Employees can request loans and track application status
+ */
 // File: app/financials/loan.tsx
-import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors } from '../../constants/theme';
-import FileUpload from '../components/FileUpload';
+import React, { useState } from "react";
+import {
+    Alert,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { Colors } from "../../constants/theme";
+import FileUpload from "../components/FileUpload";
 
 // Borrower model (local representation)
 type Borrower = {
@@ -19,19 +35,33 @@ type Borrower = {
 export default function BorrowerScreen() {
   const [borrowers, setBorrowers] = useState<Borrower[]>([]);
   const [newBorrower, setNewBorrower] = useState({
-    full_name: '',
-    email: '',
-    phone_number: '',
-    amount_requested: '',
-    purpose: '',
-    repayment_period: '',
+    full_name: "",
+    email: "",
+    phone_number: "",
+    amount_requested: "",
+    purpose: "",
+    repayment_period: "",
   });
 
   const handleAddBorrower = () => {
-    const { full_name, email, phone_number, amount_requested, purpose, repayment_period } = newBorrower;
+    const {
+      full_name,
+      email,
+      phone_number,
+      amount_requested,
+      purpose,
+      repayment_period,
+    } = newBorrower;
 
-    if (!full_name || !email || !phone_number || !amount_requested || !purpose || !repayment_period) {
-      Alert.alert('Error', 'Please fill all fields before submitting');
+    if (
+      !full_name ||
+      !email ||
+      !phone_number ||
+      !amount_requested ||
+      !purpose ||
+      !repayment_period
+    ) {
+      Alert.alert("Error", "Please fill all fields before submitting");
       return;
     }
 
@@ -43,20 +73,20 @@ export default function BorrowerScreen() {
       amount_requested: parseFloat(amount_requested),
       purpose,
       repayment_period,
-      created_at: new Date().toISOString().split('T')[0],
+      created_at: new Date().toISOString().split("T")[0],
     };
 
     setBorrowers([borrower, ...borrowers]);
     setNewBorrower({
-      full_name: '',
-      email: '',
-      phone_number: '',
-      amount_requested: '',
-      purpose: '',
-      repayment_period: '',
+      full_name: "",
+      email: "",
+      phone_number: "",
+      amount_requested: "",
+      purpose: "",
+      repayment_period: "",
     });
 
-    Alert.alert('Success', 'Borrower information submitted!');
+    Alert.alert("Success", "Borrower information submitted!");
   };
 
   return (
@@ -83,14 +113,18 @@ export default function BorrowerScreen() {
           placeholder="Phone Number"
           keyboardType="phone-pad"
           value={newBorrower.phone_number}
-          onChangeText={(t) => setNewBorrower({ ...newBorrower, phone_number: t })}
+          onChangeText={(t) =>
+            setNewBorrower({ ...newBorrower, phone_number: t })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Amount Requested (ZAR)"
           keyboardType="numeric"
           value={newBorrower.amount_requested}
-          onChangeText={(t) => setNewBorrower({ ...newBorrower, amount_requested: t })}
+          onChangeText={(t) =>
+            setNewBorrower({ ...newBorrower, amount_requested: t })
+          }
         />
         <TextInput
           style={styles.input}
@@ -105,7 +139,9 @@ export default function BorrowerScreen() {
           placeholder="Repayment Period (in months)"
           keyboardType="numeric"
           value={newBorrower.repayment_period}
-          onChangeText={(t) => setNewBorrower({ ...newBorrower, repayment_period: t })}
+          onChangeText={(t) =>
+            setNewBorrower({ ...newBorrower, repayment_period: t })
+          }
         />
 
         <TouchableOpacity style={styles.button} onPress={handleAddBorrower}>
@@ -119,8 +155,12 @@ export default function BorrowerScreen() {
             <Text style={styles.cardText}>Name: {b.full_name}</Text>
             <Text style={styles.cardText}>Email: {b.email}</Text>
             <Text style={styles.cardText}>Phone: {b.phone_number}</Text>
-            <Text style={styles.cardText}>Amount: ZAR {b.amount_requested.toLocaleString()}</Text>
-            <Text style={styles.cardText}>Repayment: {b.repayment_period} months</Text>
+            <Text style={styles.cardText}>
+              Amount: ZAR {b.amount_requested.toLocaleString()}
+            </Text>
+            <Text style={styles.cardText}>
+              Repayment: {b.repayment_period} months
+            </Text>
             <Text style={styles.cardText}>Purpose: {b.purpose}</Text>
             <Text style={styles.cardText}>Date: {b.created_at}</Text>
           </View>
@@ -131,8 +171,17 @@ export default function BorrowerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20, flexGrow: 1, backgroundColor: Colors.light.background },
-  title: { fontSize: 28, fontWeight: 'bold', color: Colors.light.tint, marginBottom: 10 },
+  container: {
+    padding: 20,
+    flexGrow: 1,
+    backgroundColor: Colors.light.background,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: Colors.light.tint,
+    marginBottom: 10,
+  },
   formContainer: { marginBottom: 20 },
   input: {
     borderWidth: 1,
@@ -140,21 +189,21 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   button: {
     backgroundColor: Colors.light.tint,
     padding: 12,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
-  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  buttonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
   listContainer: { marginTop: 20 },
   card: {
     padding: 15,
     marginBottom: 15,
     borderRadius: 8,
-    backgroundColor: '#f0f4f7',
+    backgroundColor: "#f0f4f7",
     borderLeftWidth: 5,
     borderLeftColor: Colors.light.tint,
   },

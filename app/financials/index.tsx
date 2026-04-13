@@ -1,17 +1,21 @@
+/**
+ * Financials Module Home
+ * Entry point for all financial operations: loans, requisitions, approvals
+ */
 // File: app/financials/index.tsx
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
+import { useRouter } from "expo-router";
+import React from "react";
+import { ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Colors, Fonts } from "../../constants/theme";
 
 export default function FinancialsScreen() {
   const router = useRouter();
 
   const financialActions = [
-    { name: 'Loans', route: '/financials/loan' },
-    { name: 'Requisitions', route: '/financials/requisitions' },
-    { name: 'Approved Financials', route: '/financials/approved' },
-    { name: 'Pending Financials', route: '/financials/pending' },
+    { name: "Loans", route: "/financials/loan" },
+    { name: "Requisitions", route: "/financials/requisitions" },
+    { name: "Approved Financials", route: "/financials/approved" },
+    { name: "Pending Financials", route: "/financials/pending" },
   ];
 
   return (
@@ -38,17 +42,17 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontWeight: "bold",
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.tint,
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 20,
     borderRadius: 12,
     marginBottom: 15,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 5,
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 18,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.text,
   },
 });

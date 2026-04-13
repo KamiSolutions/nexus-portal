@@ -1,27 +1,37 @@
+/**
+ * File Upload Component
+ * Provides document picker functionality for file uploads across the application
+ * Uses expo-document-picker for secure file selection
+ */
 // File: app/components/FileUpload.tsx
-import * as DocumentPicker from 'expo-document-picker';
-import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
+import * as DocumentPicker from "expo-document-picker";
+import React, { useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Colors, Fonts } from "../../constants/theme";
 
 type FileUploadProps = {
   label?: string;
   onFileSelected?: (file: DocumentPicker.DocumentResult) => void;
 };
 
-export default function FileUpload({ label = 'Upload File', onFileSelected }: FileUploadProps) {
+export default function FileUpload({
+  label = "Upload File",
+  onFileSelected,
+}: FileUploadProps) {
   const [fileName, setFileName] = useState<string | null>(null);
 
   const pickFile = async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({ copyToCacheDirectory: false });
-      if (result.type === 'success') {
+      const result = await DocumentPicker.getDocumentAsync({
+        copyToCacheDirectory: false,
+      });
+      if (result.type === "success") {
         setFileName(result.name);
         if (onFileSelected) onFileSelected(result);
       }
     } catch (error) {
-      console.log('File picker error:', error);
-      Alert.alert('Error', 'Could not select file.');
+      console.log("File picker error:", error);
+      Alert.alert("Error", "Could not select file.");
     }
   };
 
@@ -29,7 +39,9 @@ export default function FileUpload({ label = 'Upload File', onFileSelected }: Fi
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TouchableOpacity style={styles.button} onPress={pickFile}>
-        <Text style={styles.buttonText}>{fileName ? fileName : 'Select File'}</Text>
+        <Text style={styles.buttonText}>
+          {fileName ? fileName : "Select File"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,11 +62,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
     fontFamily: Fonts.sans,
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
   },
 });

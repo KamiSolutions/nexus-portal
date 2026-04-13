@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Colors } from '../../constants/theme';
-import FileUpload from '../components/FileUpload';
+/**
+ * Vehicle Maintenance Tracking Screen
+ * Displays maintenance history, service schedules, and maintenance records
+ */
+import React, { useState } from "react";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Colors } from "../../constants/theme";
+import FileUpload from "../components/FileUpload";
 
 const Maintenance = () => {
   const [records, setRecords] = useState([
     {
-      id: '1',
-      vehicle: 'Toyota Etios',
-      lastService: '2025-06-10',
-      nextService: '2025-12-01',
-      mileage: '75,000 km',
-      serviceCenter: 'AutoFix Workshop, Cape Town',
-      cost: 'R3,200',
+      id: "1",
+      vehicle: "Toyota Etios",
+      lastService: "2025-06-10",
+      nextService: "2025-12-01",
+      mileage: "75,000 km",
+      serviceCenter: "AutoFix Workshop, Cape Town",
+      cost: "R3,200",
     },
     {
-      id: '2',
-      vehicle: 'Ford Raptor',
-      lastService: '2025-05-02',
-      nextService: '2025-11-10',
-      mileage: '40,500 km',
-      serviceCenter: 'Hi-Tech Motors, Johannesburg',
-      cost: 'R4,800',
+      id: "2",
+      vehicle: "Ford Raptor",
+      lastService: "2025-05-02",
+      nextService: "2025-11-10",
+      mileage: "40,500 km",
+      serviceCenter: "Hi-Tech Motors, Johannesburg",
+      cost: "R4,800",
     },
   ]);
 
@@ -47,7 +51,11 @@ const Maintenance = () => {
 
       <View style={styles.uploadContainer}>
         <Text style={styles.uploadTitle}>Upload Maintenance Record</Text>
-        <FileUpload onFileSelect={(file) => console.log('Maintenance file uploaded:', file)} />
+        <FileUpload
+          onFileSelect={(file) =>
+            console.log("Maintenance file uploaded:", file)
+          }
+        />
       </View>
     </ScrollView>
   );
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.light.tint,
     marginBottom: 8,
   },
@@ -72,14 +80,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     padding: 14,
     marginBottom: 16,
     elevation: 2,
   },
   vehicle: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
     marginBottom: 6,
   },
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   uploadTitle: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
     marginBottom: 8,
   },

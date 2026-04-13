@@ -1,29 +1,40 @@
+/**
+ * Claims Submission Screen
+ * Employees can submit insurance claims with policy details and supporting documentation
+ */
 // File: app/policies/claim.tsx
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
-import FileUpload from '../components/FileUpload';
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import {
+    Alert,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+} from "react-native";
+import { Colors, Fonts } from "../../constants/theme";
+import FileUpload from "../components/FileUpload";
 
 export default function ClaimScreen() {
   const router = useRouter();
-  const [policyNumber, setPolicyNumber] = useState('');
-  const [claimAmount, setClaimAmount] = useState('');
-  const [claimDescription, setClaimDescription] = useState('');
+  const [policyNumber, setPolicyNumber] = useState("");
+  const [claimAmount, setClaimAmount] = useState("");
+  const [claimDescription, setClaimDescription] = useState("");
 
   const handleSubmit = () => {
     if (!policyNumber || !claimAmount || !claimDescription) {
-      Alert.alert('Error', 'Please fill in all fields.');
+      Alert.alert("Error", "Please fill in all fields.");
       return;
     }
 
     // Here you would send the data to your backend
-    Alert.alert('Success', 'Claim submitted successfully!');
-    
+    Alert.alert("Success", "Claim submitted successfully!");
+
     // Reset form
-    setPolicyNumber('');
-    setClaimAmount('');
-    setClaimDescription('');
+    setPolicyNumber("");
+    setClaimAmount("");
+    setClaimDescription("");
   };
 
   return (
@@ -80,15 +91,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontWeight: "bold",
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.tint,
     marginBottom: 20,
   },
   label: {
     fontSize: 16,
-    fontWeight: '500',
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontWeight: "500",
+    fontFamily: Fonts.web?.sans || "system-ui",
     marginTop: 10,
     marginBottom: 5,
     color: Colors.light.text,
@@ -103,19 +114,19 @@ const styles = StyleSheet.create({
   },
   textArea: {
     height: 100,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
   button: {
     backgroundColor: Colors.light.tint,
     padding: 15,
     borderRadius: 8,
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
     color: Colors.light.background,
     fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontWeight: "bold",
+    fontFamily: Fonts.web?.sans || "system-ui",
   },
 });

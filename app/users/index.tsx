@@ -1,5 +1,10 @@
+/**
+ * Users Directory Screen
+ * Displays employee directory with roles, departments, and access levels
+ * Searchable listing of all staff in organization
+ */
 // File: app/users/index.tsx
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
     FlatList,
     ScrollView,
@@ -8,52 +13,52 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-} from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
-import FileUpload from '../components/FileUpload';
+} from "react-native";
+import { Colors, Fonts } from "../../constants/theme";
+import FileUpload from "../components/FileUpload";
 
 export default function UsersScreen() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [users, setUsers] = useState([
     {
-      id: '1',
-      name: 'John Moyo',
-      department: 'Human Resources',
-      position: 'Head of HR',
-      access: ['HR', 'Finance', 'Users'],
+      id: "1",
+      name: "John Moyo",
+      department: "Human Resources",
+      position: "Head of HR",
+      access: ["HR", "Finance", "Users"],
       isHead: true,
     },
     {
-      id: '2',
-      name: 'Sarah Ncube',
-      department: 'Finance',
-      position: 'Accountant',
-      access: ['Finance'],
+      id: "2",
+      name: "Sarah Ncube",
+      department: "Finance",
+      position: "Accountant",
+      access: ["Finance"],
       isHead: false,
     },
     {
-      id: '3',
-      name: 'Peter Dlamini',
-      department: 'Logistics',
-      position: 'Fleet Manager',
-      access: ['Vehicles', 'Maintenance'],
+      id: "3",
+      name: "Peter Dlamini",
+      department: "Logistics",
+      position: "Fleet Manager",
+      access: ["Vehicles", "Maintenance"],
       isHead: true,
     },
     {
-      id: '4',
-      name: 'Linda Khumalo',
-      department: 'Operations',
-      position: 'Operations Officer',
-      access: ['Leases', 'Vehicles'],
+      id: "4",
+      name: "Linda Khumalo",
+      department: "Operations",
+      position: "Operations Officer",
+      access: ["Leases", "Vehicles"],
       isHead: false,
     },
     {
-      id: '5',
-      name: 'Blessings Banda',
-      department: 'IT',
-      position: 'Systems Administrator',
-      access: ['All Modules'],
+      id: "5",
+      name: "Blessings Banda",
+      department: "IT",
+      position: "Systems Administrator",
+      access: ["All Modules"],
       isHead: true,
     },
   ]);
@@ -62,7 +67,7 @@ export default function UsersScreen() {
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.department.toLowerCase().includes(searchQuery.toLowerCase())
+      user.department.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -80,9 +85,7 @@ export default function UsersScreen() {
         onChangeText={setSearchQuery}
       />
 
-      <Text style={styles.count}>
-        Total Employees: {filteredUsers.length}
-      </Text>
+      <Text style={styles.count}>Total Employees: {filteredUsers.length}</Text>
 
       <FlatList
         data={filteredUsers}
@@ -100,7 +103,7 @@ export default function UsersScreen() {
               <Text style={styles.label}>Position:</Text> {item.position}
             </Text>
             <Text style={styles.detail}>
-              <Text style={styles.label}>Access:</Text> {item.access.join(', ')}
+              <Text style={styles.label}>Access:</Text> {item.access.join(", ")}
             </Text>
           </View>
         )}
@@ -113,7 +116,7 @@ export default function UsersScreen() {
 
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => alert('Add new employee feature coming soon!')}
+        onPress={() => alert("Add new employee feature coming soon!")}
       >
         <Text style={styles.addButtonText}>+ Add Employee</Text>
       </TouchableOpacity>
@@ -129,22 +132,22 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.light.tint,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
     color: Colors.light.text,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     marginBottom: 20,
   },
   searchInput: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     paddingHorizontal: 15,
     paddingVertical: 10,
     fontSize: 16,
@@ -153,18 +156,18 @@ const styles = StyleSheet.create({
   },
   count: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.light.text,
     marginBottom: 15,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     padding: 15,
     marginBottom: 15,
     borderWidth: 1,
-    borderColor: '#eee',
-    shadowColor: '#000',
+    borderColor: "#eee",
+    shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
@@ -174,23 +177,23 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   rowBetween: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.light.text,
   },
   headBadge: {
     backgroundColor: Colors.light.tint,
-    color: '#fff',
+    color: "#fff",
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
     fontSize: 12,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   detail: {
     fontSize: 14,
@@ -198,7 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   label: {
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.light.tint,
   },
   uploadSection: {
@@ -214,12 +217,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.tint,
     padding: 14,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
   },
   addButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

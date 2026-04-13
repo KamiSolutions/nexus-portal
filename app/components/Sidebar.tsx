@@ -1,21 +1,25 @@
-// File: app/components/Sidebar.tsx
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+/**
+ * Sidebar Navigation Component
+ * Provides collapsible menu navigation to all modules
+ * Routes: Dashboard, Policies, Financials, HR, Leases, Vehicles, Users
+ */
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type SidebarProps = {
   collapsed: boolean;
 };
 
 const menuItems = [
-  { name: 'Dashboard', icon: 'home', route: '/(tabs)/dashboard' },
-  { name: 'Policies', icon: 'file-tray-full', route: '/policies' },
-  { name: 'Financials', icon: 'cash', route: '/financials' },
-  { name: 'HR', icon: 'people', route: '/hr' },
-  { name: 'Leases', icon: 'business', route: '/leases' },
-  { name: 'Vehicles', icon: 'car', route: '/vehicles' },
-  { name: 'Users', icon: 'person', route: '/users' },
+  { name: "Dashboard", icon: "home", route: "/(tabs)/dashboard" },
+  { name: "Policies", icon: "file-tray-full", route: "/policies" },
+  { name: "Financials", icon: "cash", route: "/financials" },
+  { name: "HR", icon: "people", route: "/hr" },
+  { name: "Leases", icon: "business", route: "/leases" },
+  { name: "Vehicles", icon: "car", route: "/vehicles" },
+  { name: "Users", icon: "person", route: "/users" },
 ];
 
 export default function Sidebar({ collapsed }: SidebarProps) {
@@ -43,22 +47,22 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 6,
     marginVertical: 4,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
   },
   menuItemCollapsed: {
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingHorizontal: 0,
   },
   menuText: {
     marginLeft: 16,
     fontSize: 16,
-    color: '#002147',
-    fontWeight: '500',
+    color: "#002147",
+    fontWeight: "500",
   },
 });

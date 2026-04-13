@@ -1,22 +1,33 @@
+/**
+ * Dashboard / Main Navigation Screen
+ * Central hub displaying all modules as a grid
+ * Users can navigate to Financials, HR, Vehicles, Leases, Policies, and Users
+ */
 // File: app/dashboard.tsx
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React from "react";
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 const screens = [
-  { name: 'Home', route: '/(tabs)/home', icon: 'home' },
-  { name: 'Policies', route: '/policies', icon: 'file-tray-full' },
-  { name: 'Claims', route: '/policies/claim', icon: 'document-text' },
-  { name: 'Financials', route: '/financials', icon: 'cash' },
-  { name: 'Loans', route: '/financials/loan', icon: 'wallet' },
-  { name: 'HR', route: '/hr', icon: 'people' },
-  { name: 'Contracts', route: '/hr/contracts', icon: 'document' },
-  { name: 'Leave', route: '/hr/leave', icon: 'calendar' },
-  { name: 'Leases', route: '/leases', icon: 'business' },
-  { name: 'Vehicles', route: '/vehicles', icon: 'car' },
-  { name: 'Maintenance', route: '/vehicles/maintenance', icon: 'construct' },
-  { name: 'Users', route: '/users', icon: 'person' },
+  { name: "Home", route: "/(tabs)/home", icon: "home" },
+  { name: "Policies", route: "/policies", icon: "file-tray-full" },
+  { name: "Claims", route: "/policies/claim", icon: "document-text" },
+  { name: "Financials", route: "/financials", icon: "cash" },
+  { name: "Loans", route: "/financials/loan", icon: "wallet" },
+  { name: "HR", route: "/hr", icon: "people" },
+  { name: "Contracts", route: "/hr/contracts", icon: "document" },
+  { name: "Leave", route: "/hr/leave", icon: "calendar" },
+  { name: "Leases", route: "/leases", icon: "business" },
+  { name: "Vehicles", route: "/vehicles", icon: "car" },
+  { name: "Maintenance", route: "/vehicles/maintenance", icon: "construct" },
+  { name: "Users", route: "/users", icon: "person" },
 ];
 
 export default function Dashboard() {
@@ -47,28 +58,28 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#002147',
+    fontWeight: "bold",
+    color: "#002147",
     marginBottom: 20,
   },
   grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   card: {
-    width: '47%',
-    backgroundColor: '#f0f0f0',
+    width: "47%",
+    backgroundColor: "#f0f0f0",
     padding: 20,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 15,
   },
   cardText: {
     marginTop: 10,
     fontSize: 16,
-    color: '#002147',
-    fontWeight: '500',
-    textAlign: 'center',
+    color: "#002147",
+    fontWeight: "500",
+    textAlign: "center",
   },
 });

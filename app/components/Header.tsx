@@ -1,5 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+/**
+ * Header Component
+ * Displays page titles and section headers throughout the application
+ */
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const Header = ({ title }: { title: string }) => {
   return (
@@ -12,6 +16,11 @@ const Header = ({ title }: { title: string }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  container: { height: 60, backgroundColor: '#d4af37', justifyContent: 'center', paddingHorizontal: 20 },
-  title: { fontSize: 20, fontWeight: 'bold', color: '#002147' },
+  container: {
+    height: 60,
+    backgroundColor: "#d4af37",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  title: { fontSize: 20, fontWeight: "bold", color: "#002147" },
 });

@@ -1,13 +1,28 @@
+/**
+ * Lease Management Module
+ * Property tracking, lease agreements, and rental management
+ * Displays portfolio of properties and their lease details
+ */
 // File: app/leases/index.tsx
-import React, { useState } from 'react';
-import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
-import FileUpload from '../components/FileUpload';
+import React, { useState } from "react";
+import {
+    Alert,
+    FlatList,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { Colors, Fonts } from "../../constants/theme";
+import FileUpload from "../components/FileUpload";
 
 // Import images
-const building1 = require('../../assets/images/building_1.jpeg');
-const building2 = require('../../assets/images/building_2.jpeg');
-const building3 = require('../../assets/images/building_3.webp');
+const building1 = require("../../assets/images/building_1.jpeg");
+const building2 = require("../../assets/images/building_2.jpeg");
+const building3 = require("../../assets/images/building_3.webp");
 
 const images = [building1, building2, building3];
 
@@ -25,39 +40,39 @@ export default function LeasesScreen() {
   const [properties, setProperties] = useState<Property[]>([
     {
       id: 1,
-      name: 'Summit House',
-      location: 'Johannesburg',
-      address: '45 Rivonia Road, Sandton, Johannesburg',
-      yearsOccupied: '3 years',
-      contractEnd: '31 Dec 2026',
+      name: "Premier Plaza",
+      location: "Johannesburg",
+      address: "22 Commerce Street, Sandton, Johannesburg, 2196",
+      yearsOccupied: "3 years",
+      contractEnd: "31 Dec 2026",
       image: building1,
     },
     {
       id: 2,
-      name: 'Sunset Office',
-      location: 'Cape Town',
-      address: '12 Bree Street, City Centre, Cape Town',
-      yearsOccupied: '5 years',
-      contractEnd: '30 Jun 2027',
+      name: "Nexus Business Centre",
+      location: "Cape Town",
+      address: "22 Commerce Street, City Bowl, Cape Town, 8001",
+      yearsOccupied: "5 years",
+      contractEnd: "30 Jun 2027",
       image: building2,
     },
     {
       id: 3,
-      name: 'Riverside Towers',
-      location: 'Durban',
-      address: '100 Riverside Drive, Umhlanga, Durban',
-      yearsOccupied: '-',
-      contractEnd: '-',
+      name: "Riverside Towers",
+      location: "Durban",
+      address: "100 Riverside Drive, Umhlanga, Durban",
+      yearsOccupied: "-",
+      contractEnd: "-",
       image: building3,
     },
   ]);
 
-  const [newProperty, setNewProperty] = useState({ name: '', location: '' });
+  const [newProperty, setNewProperty] = useState({ name: "", location: "" });
   const totalProperties = properties.length;
 
   const handleAddProperty = () => {
     if (!newProperty.name || !newProperty.location) {
-      Alert.alert('Error', 'Please fill all fields');
+      Alert.alert("Error", "Please fill all fields");
       return;
     }
 
@@ -66,14 +81,14 @@ export default function LeasesScreen() {
       id: properties.length + 1,
       name: newProperty.name,
       location: newProperty.location,
-      address: 'Address pending...',
-      yearsOccupied: '-',
-      contractEnd: '-',
+      address: "Address pending...",
+      yearsOccupied: "-",
+      contractEnd: "-",
       image: randomImage,
     };
 
     setProperties([newProp, ...properties]);
-    setNewProperty({ name: '', location: '' });
+    setNewProperty({ name: "", location: "" });
   };
 
   return (
@@ -86,13 +101,21 @@ export default function LeasesScreen() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={item.image} style={styles.image} resizeMode="cover" />
+            <Image
+              source={item.image}
+              style={styles.image}
+              resizeMode="cover"
+            />
             <View style={styles.info}>
               <Text style={styles.propertyName}>{item.name}</Text>
               <Text style={styles.detail}>📍 {item.location}</Text>
               <Text style={styles.detail}>🏠 {item.address}</Text>
-              <Text style={styles.detail}>⏳ Occupied: {item.yearsOccupied}</Text>
-              <Text style={styles.detail}>📅 Contract Ends: {item.contractEnd}</Text>
+              <Text style={styles.detail}>
+                ⏳ Occupied: {item.yearsOccupied}
+              </Text>
+              <Text style={styles.detail}>
+                📅 Contract Ends: {item.contractEnd}
+              </Text>
             </View>
           </View>
         )}
@@ -106,13 +129,17 @@ export default function LeasesScreen() {
           style={styles.input}
           placeholder="Property Name"
           value={newProperty.name}
-          onChangeText={(text) => setNewProperty({ ...newProperty, name: text })}
+          onChangeText={(text) =>
+            setNewProperty({ ...newProperty, name: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Location"
           value={newProperty.location}
-          onChangeText={(text) => setNewProperty({ ...newProperty, location: text })}
+          onChangeText={(text) =>
+            setNewProperty({ ...newProperty, location: text })
+          }
         />
         <TouchableOpacity style={styles.button} onPress={handleAddProperty}>
           <Text style={styles.buttonText}>Add Property</Text>
@@ -129,24 +156,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontWeight: "bold",
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.tint,
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.text,
     marginBottom: 20,
   },
   card: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    backgroundColor: "#fff",
     borderRadius: 12,
     marginBottom: 20,
-    overflow: 'hidden',
-    shadowColor: '#000',
+    overflow: "hidden",
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 3,
@@ -161,7 +188,7 @@ const styles = StyleSheet.create({
   },
   propertyName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.light.tint,
     marginBottom: 4,
   },
@@ -175,7 +202,7 @@ const styles = StyleSheet.create({
   },
   uploadTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.light.tint,
     marginBottom: 10,
   },
@@ -185,7 +212,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     fontSize: 16,
   },
   button: {
@@ -193,13 +220,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 24,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 5,
     marginBottom: 50,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 16,
   },
 });

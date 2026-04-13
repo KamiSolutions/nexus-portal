@@ -1,8 +1,20 @@
+/**
+ * Contracts Management Screen
+ * Displays and manages employee contracts
+ */
 // File: app/hr/contracts.tsx
-import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors, Fonts } from '../../constants/theme';
-import FileUpload from '../components/FileUpload';
+import React, { useState } from "react";
+import {
+    Alert,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { Colors, Fonts } from "../../constants/theme";
+import FileUpload from "../components/FileUpload";
 
 type Contract = {
   id: number;
@@ -16,34 +28,34 @@ export default function ContractsScreen() {
   const [contracts, setContracts] = useState<Contract[]>([
     {
       id: 1,
-      employee: 'John Doe',
-      document_url: 'https://example.com/contracts/john.pdf',
-      created_at: '2024-01-01',
-      updated_at: '2024-01-01',
+      employee: "John Doe",
+      document_url: "https://example.com/contracts/john.pdf",
+      created_at: "2024-01-01",
+      updated_at: "2024-01-01",
     },
     {
       id: 2,
-      employee: 'Jane Smith',
-      document_url: 'https://example.com/contracts/jane.pdf',
-      created_at: '2024-03-15',
-      updated_at: '2024-03-15',
+      employee: "Jane Smith",
+      document_url: "https://example.com/contracts/jane.pdf",
+      created_at: "2024-03-15",
+      updated_at: "2024-03-15",
     },
   ]);
 
   const [newContract, setNewContract] = useState({
-    employee: '',
-    document_url: '',
+    employee: "",
+    document_url: "",
   });
 
   const totalContracts = contracts.length;
 
   const handleAddContract = () => {
     if (!newContract.employee || !newContract.document_url) {
-      Alert.alert('Error', 'Please fill all fields');
+      Alert.alert("Error", "Please fill all fields");
       return;
     }
 
-    const now = new Date().toISOString().split('T')[0];
+    const now = new Date().toISOString().split("T")[0];
 
     const contract: Contract = {
       id: contracts.length + 1,
@@ -54,7 +66,7 @@ export default function ContractsScreen() {
     };
 
     setContracts([contract, ...contracts]);
-    setNewContract({ employee: '', document_url: '' });
+    setNewContract({ employee: "", document_url: "" });
   };
 
   return (
@@ -70,13 +82,17 @@ export default function ContractsScreen() {
           style={styles.input}
           placeholder="Employee Name"
           value={newContract.employee}
-          onChangeText={(text) => setNewContract({ ...newContract, employee: text })}
+          onChangeText={(text) =>
+            setNewContract({ ...newContract, employee: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Document URL"
           value={newContract.document_url}
-          onChangeText={(text) => setNewContract({ ...newContract, document_url: text })}
+          onChangeText={(text) =>
+            setNewContract({ ...newContract, document_url: text })
+          }
         />
 
         <TouchableOpacity style={styles.button} onPress={handleAddContract}>
@@ -99,17 +115,21 @@ export default function ContractsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20, flexGrow: 1, backgroundColor: Colors.light.background },
+  container: {
+    padding: 20,
+    flexGrow: 1,
+    backgroundColor: Colors.light.background,
+  },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontWeight: "bold",
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.tint,
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 18,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.text,
     marginBottom: 20,
   },
@@ -120,14 +140,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     fontSize: 16,
   },
-  button: { backgroundColor: Colors.light.tint, padding: 12, borderRadius: 8, alignItems: 'center' },
+  button: {
+    backgroundColor: Colors.light.tint,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+  },
   buttonText: {
-    color: '#fff',
-    fontFamily: Fonts.web?.sans || 'system-ui',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontFamily: Fonts.web?.sans || "system-ui",
+    fontWeight: "bold",
     fontSize: 16,
   },
   listContainer: { marginTop: 20 },
@@ -135,13 +160,13 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
     borderRadius: 8,
-    backgroundColor: '#f0f4f7',
+    backgroundColor: "#f0f4f7",
     borderLeftWidth: 5,
     borderLeftColor: Colors.light.tint,
   },
   cardText: {
     fontSize: 16,
-    fontFamily: Fonts.web?.sans || 'system-ui',
+    fontFamily: Fonts.web?.sans || "system-ui",
     color: Colors.light.text,
   },
 });
