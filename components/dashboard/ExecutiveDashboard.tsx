@@ -17,7 +17,7 @@ const approvalRows = [
 ];
 
 export function ExecutiveDashboard() {
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
   const { activeCompany, companies, tenant } = useTenant();
 
   return (
@@ -30,7 +30,7 @@ export function ExecutiveDashboard() {
             {tenant.groupName} is operating across {companies.length} company workspaces. Current scope: {activeCompany.name}.
           </Text>
         </View>
-        <Surface style={styles.heroPanel}>
+        <Surface style={[styles.heroPanel, isDark && { backgroundColor: colors.elevated, borderColor: colors.borderStrong }]}>
           <Text style={[styles.panelLabel, { color: colors.textMuted }]}>Tenant architecture</Text>
           <Text style={[styles.panelValue, { color: colors.text }]}>Isolated workspaces</Text>
           <View style={styles.badgeRow}>
@@ -69,7 +69,7 @@ export function ExecutiveDashboard() {
               </View>
             ))}
           </View>
-          <View style={[styles.aiPanel, { backgroundColor: colors.background, borderColor: colors.border }]}>
+          <View style={[styles.aiPanel, { backgroundColor: isDark ? colors.hover : colors.background, borderColor: colors.borderStrong }]}>
             <Text style={[styles.aiTitle, { color: colors.text }]}>AI operating insight</Text>
             <Text style={[styles.aiText, { color: colors.textMuted }]}>
               Finance approvals are clustering around capex. Consider a delegated approval lane for sub-R250k requests.
@@ -96,7 +96,16 @@ export function ExecutiveDashboard() {
           <Text style={[styles.sectionTitle, { color: colors.text }]}>Activity feed</Text>
           {activityFeed.map((item) => (
             <View key={item} style={[styles.activityItem, { borderBottomColor: colors.border }]}>
-              <View style={[styles.activityPulse, { backgroundColor: colors.blue }]} />
+              <View
+                style={[
+                  styles.activityPulse,
+                  {
+                    backgroundColor: colors.blue,
+                    shadowColor: colors.blue,
+                    shadowOpacity: isDark ? 0.7 : 0,
+                  },
+                ]}
+              />
               <Text style={[styles.activityText, { color: colors.text }]}>{item}</Text>
             </View>
           ))}
@@ -247,6 +256,8 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 99,
     marginTop: 6,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 9,
   },
   activityText: {
     flex: 1,
@@ -255,4 +266,3 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
-

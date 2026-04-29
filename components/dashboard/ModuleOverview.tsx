@@ -14,7 +14,7 @@ type ModuleOverviewProps = {
 };
 
 export function ModuleOverview({ title, subtitle, metrics, rows }: ModuleOverviewProps) {
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
   const { activeCompany } = useTenant();
   const columns = Object.keys(rows[0] ?? { item: "" }).map((key) => ({
     key,
@@ -46,7 +46,7 @@ export function ModuleOverview({ title, subtitle, metrics, rows }: ModuleOvervie
         <Text style={[styles.sectionTitle, { color: colors.text }]}>Workspace controls</Text>
         <View style={styles.workflowGrid}>
           {["Saved filters", "Export CSV", "Approval workflow", "Audit trail", "API sync", "AI summary"].map((item) => (
-            <View key={item} style={[styles.workflowChip, { borderColor: colors.border, backgroundColor: colors.background }]}>
+            <View key={item} style={[styles.workflowChip, { borderColor: colors.borderStrong, backgroundColor: isDark ? colors.hover : colors.background }]}>
               <Text style={[styles.workflowText, { color: colors.text }]}>{item}</Text>
             </View>
           ))}
@@ -130,4 +130,3 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
 });
-

@@ -6,10 +6,10 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 
 export function WorkspaceSelector() {
   const { activeCompany, companies, setActiveCompanyId, tenant } = useTenant();
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
 
   return (
-    <View style={[styles.container, { borderColor: colors.border }]}>
+    <View style={[styles.container, { backgroundColor: isDark ? colors.card : "transparent", borderColor: colors.borderStrong }]}>
       <Text style={[styles.eyebrow, { color: colors.textMuted }]}>{tenant.groupName}</Text>
       <Text style={[styles.active, { color: colors.text }]} numberOfLines={1}>
         {activeCompany.name}
@@ -20,7 +20,10 @@ export function WorkspaceSelector() {
             key={company.id}
             style={[
               styles.chip,
-              { borderColor: company.id === activeCompany.id ? company.brandColor : colors.border },
+              {
+                backgroundColor: company.id === activeCompany.id && isDark ? colors.blueSoft : "transparent",
+                borderColor: company.id === activeCompany.id ? colors.blue : colors.border,
+              },
             ]}
             onPress={() => setActiveCompanyId(company.id)}
           >
@@ -73,4 +76,3 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
 });
-

@@ -11,11 +11,20 @@ type KpiCardProps = {
 };
 
 export function KpiCard({ label, value, delta, tone = "blue" }: KpiCardProps) {
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
 
   return (
-    <Surface style={styles.card}>
-      <View style={[styles.marker, { backgroundColor: colors[tone] }]} />
+    <Surface style={[styles.card, isDark && { backgroundColor: colors.card, borderColor: colors.borderStrong }]}>
+      <View
+        style={[
+          styles.marker,
+          {
+            backgroundColor: colors[tone],
+            shadowColor: colors[tone],
+            shadowOpacity: isDark ? 0.52 : 0,
+          },
+        ]}
+      />
       <Text style={[styles.label, { color: colors.textMuted }]}>{label}</Text>
       <View style={styles.row}>
         <Text style={[styles.value, { color: colors.text }]}>{value}</Text>
@@ -37,6 +46,8 @@ const styles = StyleSheet.create({
     width: 34,
     height: 4,
     borderRadius: 999,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 12,
   },
   label: {
     fontSize: 13,
@@ -58,4 +69,3 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
 });
-

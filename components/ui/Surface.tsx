@@ -8,7 +8,7 @@ type SurfaceProps = ViewProps & {
 };
 
 export function Surface({ style, elevated = true, padded = true, ...props }: SurfaceProps) {
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
 
   return (
     <View
@@ -16,9 +16,12 @@ export function Surface({ style, elevated = true, padded = true, ...props }: Sur
       style={[
         styles.base,
         {
-          backgroundColor: colors.surface,
+          backgroundColor: isDark ? colors.card : colors.surface,
           borderColor: colors.border,
-          shadowOpacity: elevated ? 0.08 : 0,
+          shadowColor: isDark ? "#000000" : colors.shadow,
+          shadowOpacity: elevated ? (isDark ? 0.34 : 0.1) : 0,
+          shadowRadius: isDark ? 34 : 28,
+          elevation: elevated ? (isDark ? 8 : 3) : 0,
         },
         padded && styles.padded,
         style,
@@ -31,13 +34,9 @@ const styles = StyleSheet.create({
   base: {
     borderWidth: 1,
     borderRadius: 12,
-    shadowColor: "#0b1630",
     shadowOffset: { width: 0, height: 12 },
-    shadowRadius: 28,
-    elevation: 3,
   },
   padded: {
     padding: 18,
   },
 });
-

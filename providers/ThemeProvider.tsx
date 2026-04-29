@@ -1,20 +1,17 @@
-import { enterprisePalette } from "@/lib/constants";
+import { themes, type ThemeMode, type ThemeTokens } from "@/constants/theme";
 import React, { createContext, useContext, useMemo, useState } from "react";
 import { useColorScheme } from "react-native";
-
-type ThemeMode = "light" | "dark";
 
 type ThemeContextValue = {
   mode: ThemeMode;
   isDark: boolean;
-  colors: typeof enterprisePalette & {
-    background: string;
-    surface: string;
-    text: string;
-    textMuted: string;
-    border: string;
-  };
+  theme: ThemeTokens;
+  colors: ThemeTokens["colors"];
+  spacing: ThemeTokens["spacing"];
+  radii: ThemeTokens["radii"];
+  shadows: ThemeTokens["shadows"];
   toggleTheme: () => void;
+  setThemeMode: (mode: ThemeMode) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -25,19 +22,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo(() => {
     const isDark = mode === "dark";
+    const theme = themes[mode];
 
     return {
       mode,
       isDark,
-      colors: {
-        ...enterprisePalette,
-        background: isDark ? "#07111f" : "#f6f8fb",
-        surface: isDark ? "#101b33" : "#ffffff",
-        text: isDark ? "#f8fafc" : "#07111f",
-        textMuted: isDark ? "#a8b3c7" : "#64748b",
-        border: isDark ? "#22304b" : "#dbe4ef",
-      },
+      theme,
+      colors: theme.colors,
+      spacing: theme.spacing,
+      radii: theme.radii,
+      shadows: theme.shadows,
       toggleTheme: () => setMode((current) => (current === "dark" ? "light" : "dark")),
+      setThemeMode: setMode,
     };
   }, [mode]);
 
@@ -53,4 +49,3 @@ export function useEnterpriseTheme() {
 
   return context;
 }
-

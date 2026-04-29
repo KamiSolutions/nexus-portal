@@ -8,20 +8,22 @@ type DataPoint = {
 };
 
 export function MiniBarChart({ data }: { data: DataPoint[] }) {
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
   const maxValue = Math.max(...data.map((item) => item.value), 1);
 
   return (
     <View style={styles.chart}>
       {data.map((item) => (
         <View key={item.month} style={styles.column}>
-          <View style={styles.track}>
+          <View style={[styles.track, { backgroundColor: isDark ? colors.hover : "#e8eef7" }]}>
             <View
               style={[
                 styles.bar,
                 {
                   height: `${Math.max((item.value / maxValue) * 100, 12)}%`,
                   backgroundColor: colors.blue,
+                  shadowColor: colors.blue,
+                  shadowOpacity: isDark ? 0.42 : 0,
                 },
               ]}
             />
@@ -57,10 +59,11 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 12,
   },
   label: {
     fontSize: 12,
     fontWeight: "700",
   },
 });
-

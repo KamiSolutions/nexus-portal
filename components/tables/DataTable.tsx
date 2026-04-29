@@ -15,13 +15,19 @@ type DataTableProps<T extends Record<string, unknown>> = {
 };
 
 export function DataTable<T extends Record<string, unknown>>({ columns, rows }: DataTableProps<T>) {
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
 
   return (
     <Surface padded={false}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View>
-          <View style={[styles.row, styles.header, { borderBottomColor: colors.border }]}>
+          <View
+            style={[
+              styles.row,
+              styles.header,
+              { backgroundColor: isDark ? colors.elevated : "#f8fafc", borderBottomColor: colors.borderStrong },
+            ]}
+          >
             {columns.map((column) => (
               <Text
                 key={String(column.key)}
@@ -32,7 +38,16 @@ export function DataTable<T extends Record<string, unknown>>({ columns, rows }: 
             ))}
           </View>
           {rows.map((row, index) => (
-            <View key={index} style={[styles.row, { borderBottomColor: colors.border }]}>
+            <View
+              key={index}
+              style={[
+                styles.row,
+                {
+                  backgroundColor: isDark && index % 2 === 1 ? "rgba(36, 48, 74, 0.45)" : "transparent",
+                  borderBottomColor: colors.border,
+                },
+              ]}
+            >
               {columns.map((column) => (
                 <Text key={String(column.key)} style={[styles.cell, { width: column.width ?? 150, color: colors.text }]}>
                   {String(row[column.key])}
@@ -68,4 +83,3 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-

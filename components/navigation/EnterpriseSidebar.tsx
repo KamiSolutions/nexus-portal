@@ -26,12 +26,20 @@ export function EnterpriseSidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const { canAccess } = usePermissions();
-  const { colors } = useEnterpriseTheme();
+  const { colors, isDark } = useEnterpriseTheme();
 
   return (
     <View style={[styles.sidebar, { backgroundColor: colors.surface, borderRightColor: colors.border }]}>
       <View style={styles.brand}>
-        <View style={[styles.logo, { backgroundColor: colors.navy }]}>
+        <View
+          style={[
+            styles.logo,
+            {
+              backgroundColor: isDark ? colors.elevated : colors.navy,
+              borderColor: isDark ? colors.borderStrong : "transparent",
+            },
+          ]}
+        >
           <Text style={styles.logoText}>N</Text>
         </View>
         <View>
@@ -51,7 +59,13 @@ export function EnterpriseSidebar() {
             return (
               <TouchableOpacity
                 key={item.label}
-                style={[styles.item, isActive && { backgroundColor: "#eaf1ff" }]}
+                style={[
+                  styles.item,
+                  {
+                    borderColor: isActive ? colors.focusRing : "transparent",
+                    backgroundColor: isActive ? colors.blueSoft : "transparent",
+                  },
+                ]}
                 onPress={() => router.push(item.route)}
               >
                 <Ionicons name={item.icon as any} size={19} color={isActive ? colors.blue : colors.textMuted} />
@@ -80,6 +94,7 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 10,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -103,6 +118,7 @@ const styles = StyleSheet.create({
   item: {
     minHeight: 42,
     borderRadius: 8,
+    borderWidth: 1,
     paddingHorizontal: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -113,4 +129,3 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
 });
-

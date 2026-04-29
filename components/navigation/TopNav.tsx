@@ -10,12 +10,12 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 export function TopNav() {
   const { user } = useAuth();
   const { activeCompany } = useTenant();
-  const { colors, mode, toggleTheme } = useEnterpriseTheme();
+  const { colors, isDark, mode, toggleTheme } = useEnterpriseTheme();
   const { setCommandPaletteOpen } = useWorkspace();
 
   return (
     <View style={[styles.topNav, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>
-      <View style={[styles.search, { borderColor: colors.border, backgroundColor: colors.background }]}>
+      <View style={[styles.search, { borderColor: colors.borderStrong, backgroundColor: isDark ? colors.card : colors.background }]}>
         <Ionicons name="search-outline" size={18} color={colors.textMuted} />
         <TextInput
           placeholder="Search companies, approvals, people, vehicles..."
@@ -24,16 +24,22 @@ export function TopNav() {
         />
       </View>
 
-      <TouchableOpacity style={[styles.action, { borderColor: colors.border }]} onPress={() => setCommandPaletteOpen(true)}>
+      <TouchableOpacity
+        style={[styles.action, { borderColor: colors.borderStrong, backgroundColor: isDark ? colors.card : "transparent" }]}
+        onPress={() => setCommandPaletteOpen(true)}
+      >
         <Ionicons name="flash-outline" size={18} color={colors.blue} />
         <Text style={[styles.actionText, { color: colors.text }]}>Quick actions</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.iconButton, { borderColor: colors.border }]} onPress={toggleTheme}>
+      <TouchableOpacity
+        style={[styles.iconButton, { borderColor: colors.borderStrong, backgroundColor: isDark ? colors.card : "transparent" }]}
+        onPress={toggleTheme}
+      >
         <Ionicons name={mode === "dark" ? "sunny-outline" : "moon-outline"} size={18} color={colors.text} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.iconButton, { borderColor: colors.border }]}>
+      <TouchableOpacity style={[styles.iconButton, { borderColor: colors.borderStrong, backgroundColor: isDark ? colors.card : "transparent" }]}>
         <Ionicons name="notifications-outline" size={18} color={colors.text} />
       </TouchableOpacity>
 
@@ -124,4 +130,3 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
-
