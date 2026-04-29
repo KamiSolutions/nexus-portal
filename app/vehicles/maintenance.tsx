@@ -2,13 +2,13 @@
  * Vehicle Maintenance Tracking Screen
  * Displays maintenance history, service schedules, and maintenance records
  */
-import React, { useState } from "react";
+import React from "react";
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/theme";
 import FileUpload from "../components/FileUpload";
 
 const Maintenance = () => {
-  const [records, setRecords] = useState([
+  const records = [
     {
       id: "1",
       vehicle: "Toyota Etios",
@@ -27,7 +27,7 @@ const Maintenance = () => {
       serviceCenter: "Hi-Tech Motors, Johannesburg",
       cost: "R4,800",
     },
-  ]);
+  ];
 
   return (
     <ScrollView style={styles.container}>

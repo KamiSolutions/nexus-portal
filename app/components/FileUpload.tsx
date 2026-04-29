@@ -11,12 +11,14 @@ import { Colors, Fonts } from "../../constants/theme";
 
 type FileUploadProps = {
   label?: string;
-  onFileSelected?: (file: DocumentPicker.DocumentResult) => void;
+  onFileSelected?: (file: DocumentPicker.DocumentPickerAsset) => void;
+  onFileSelect?: (file: DocumentPicker.DocumentPickerAsset) => void;
 };
 
 export default function FileUpload({
   label = "Upload File",
   onFileSelected,
+  onFileSelect,
 }: FileUploadProps) {
   const [fileName, setFileName] = useState<string | null>(null);
 
@@ -25,9 +27,11 @@ export default function FileUpload({
       const result = await DocumentPicker.getDocumentAsync({
         copyToCacheDirectory: false,
       });
-      if (result.type === "success") {
-        setFileName(result.name);
-        if (onFileSelected) onFileSelected(result);
+      if (!result.canceled) {
+        const file = result.assets[0];
+        setFileName(file.name);
+        onFileSelected?.(file);
+        onFileSelect?.(file);
       }
     } catch (error) {
       console.log("File picker error:", error);

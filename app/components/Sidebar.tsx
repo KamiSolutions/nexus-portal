@@ -31,7 +31,7 @@ export default function Sidebar({ collapsed }: SidebarProps) {
         <TouchableOpacity
           key={item.name}
           style={[styles.menuItem, collapsed && styles.menuItemCollapsed]}
-          onPress={() => router.push(item.route)}
+          onPress={() => router.push(item.route as any)}
         >
           <Ionicons name={item.icon as any} size={24} color="#002147" />
           {!collapsed && <Text style={styles.menuText}>{item.name}</Text>}

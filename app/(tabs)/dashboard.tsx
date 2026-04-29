@@ -41,7 +41,7 @@ export default function Dashboard() {
           <TouchableOpacity
             key={screen.name}
             style={styles.card}
-            onPress={() => router.push(screen.route)}
+            onPress={() => router.push(screen.route as any)}
           >
             <Ionicons name={screen.icon as any} size={32} color="#002147" />
             <Text style={styles.cardText}>{screen.name}</Text>

@@ -7,7 +7,7 @@
  * Displays list of approved financial requisitions
  */
 // File: app/financials/approved.tsx
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Colors, Fonts } from "../../constants/theme";
 import FileUpload from "../components/FileUpload";
@@ -20,7 +20,7 @@ type ApprovedFinancial = {
 };
 
 export default function ApprovedFinancialsScreen() {
-  const [approvedList, setApprovedList] = useState<ApprovedFinancial[]>([
+  const approvedList: ApprovedFinancial[] = [
     {
       id: 1,
       description: "Stationery Requisition",
@@ -33,7 +33,7 @@ export default function ApprovedFinancialsScreen() {
       amount: 4500,
       date: "2025-10-05",
     },
-  ]);
+  ];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

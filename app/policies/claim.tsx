@@ -3,7 +3,6 @@
  * Employees can submit insurance claims with policy details and supporting documentation
  */
 // File: app/policies/claim.tsx
-import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
     Alert,
@@ -17,7 +16,6 @@ import { Colors, Fonts } from "../../constants/theme";
 import FileUpload from "../components/FileUpload";
 
 export default function ClaimScreen() {
-  const router = useRouter();
   const [policyNumber, setPolicyNumber] = useState("");
   const [claimAmount, setClaimAmount] = useState("");
   const [claimDescription, setClaimDescription] = useState("");

@@ -80,7 +80,7 @@ export default function ExploreScreen() {
           <TouchableOpacity
             key={index}
             style={styles.linkCard}
-            onPress={() => router.push(link.route)}
+            onPress={() => router.push(link.route as any)}
           >
             <Text style={styles.linkTitle}>{link.title}</Text>
             <Text style={styles.linkDescription}>{link.description}</Text>

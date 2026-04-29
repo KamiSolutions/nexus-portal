@@ -4,40 +4,27 @@
  */
 import { useRouter } from "expo-router";
 import React from "react";
-import {
-  Button,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Colors, Fonts } from "../../constants/theme";
 
 // Import local images
-const summitLife = require("../../assets/images/summit_life.png");
-const kfs = require("../../assets/images/KFS.png");
-const kfm = require("../../assets/images/KFM.png");
+//const summitLife = require("../../assets/images/summit_life.png");
+//const kfs = require("../../assets/images/KFS.png");
+//const kfm = require("../../assets/images/KFM.png");
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Welcome to Summit Life Group Portal</Text>
+      <Text style={styles.title}>Welcome to Nexus Group Portal</Text>
       <Text style={styles.subtitle}>
         Your unified internal management platform for finance, HR, vehicles, and
         leases — all in one secure and simple place.
       </Text>
 
-      <View style={styles.imageContainer}>
-        <Image source={summitLife} style={styles.image} resizeMode="contain" />
-        <Image source={kfs} style={styles.image} resizeMode="contain" />
-        <Image source={kfm} style={styles.image} resizeMode="contain" />
-      </View>
-
       <Text style={styles.description}>
-        This web app provides a centralized space for Kusile Group operations —
+        This web app provides a centralized space for Nexus operations —
         allowing staff to manage financial requisitions, leases, HR processes,
         and company vehicles efficiently.{"\n\n"}
         Department heads can upload important documents, track requests, and
