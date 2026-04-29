@@ -75,6 +75,7 @@ Make sure:
 Authentication endpoints are available
 JWT token-based auth is enabled
 CORS is configured for your frontend domain
+
 📁 Project Structure (Simplified)
 nexus-portal/
 ├── app/                # Routes (Expo Router)
@@ -85,6 +86,7 @@ nexus-portal/
 ├── services/          # API service layer
 ├── assets/            # Images & fonts
 └── dist/              # Production web build
+
 🔐 Key Features
 Role-based access control (Admin, Manager, Staff)
 Secure authentication with JWT
@@ -92,11 +94,13 @@ Cross-platform UI (Web + Mobile)
 Modular service-based architecture
 Theme system (light/dark mode support)
 Production-ready API integration layer
+
 🧠 Notes for Developers
 All API calls are environment-driven via EXPO_PUBLIC_API_URL
 Do NOT hardcode backend URLs
 Web deployment uses SPA routing (refresh-safe)
 Backend must be running separately
+
 🏗 Build & Deployment
 Web (Vercel-ready)
 npm run build
