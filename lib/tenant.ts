@@ -25,9 +25,9 @@ export type Tenant = {
 };
 
 export const demoTenant: Tenant = {
-  id: "tenant-summit-group",
-  groupName: "Summit Life Group",
-  primaryDomain: "summitlife.example",
+  id: "tenant-nexus-group",
+  groupName: "Nexus Life Group",
+  primaryDomain: "nexus.example",
   plan: "enterprise",
   dataRegion: "af-south-1",
   companies: [
@@ -35,7 +35,7 @@ export const demoTenant: Tenant = {
       id: "group-hq",
       tenantId: "tenant-summit-group",
       name: "Group HQ",
-      legalName: "Summit Life Group Holdings",
+      legalName: "Nexus Group Holdings",
       type: "group",
       industry: "Holding Company",
       country: "South Africa",
@@ -46,9 +46,9 @@ export const demoTenant: Tenant = {
     },
     {
       id: "kfs",
-      tenantId: "tenant-summit-group",
-      name: "Kusile Financial Services",
-      legalName: "Kusile Financial Services (Pty) Ltd",
+      tenantId: "tenant-nexus-group",
+      name: "Kami Financial Services",
+      legalName: "Kami Financial Services (Pty) Ltd",
       type: "subsidiary",
       industry: "Financial Services",
       country: "South Africa",
@@ -60,9 +60,9 @@ export const demoTenant: Tenant = {
     },
     {
       id: "kfm",
-      tenantId: "tenant-summit-group",
-      name: "Kusile Fleet Management",
-      legalName: "Kusile Fleet Management (Pty) Ltd",
+      tenantId: "tenant-nexus-group",
+      name: "Kami Fleet Management",
+      legalName: "Kami Fleet Management (Pty) Ltd",
       type: "subsidiary",
       industry: "Logistics",
       country: "South Africa",
@@ -74,9 +74,9 @@ export const demoTenant: Tenant = {
     },
     {
       id: "summit-life",
-      tenantId: "tenant-summit-group",
-      name: "Summit Life Operations",
-      legalName: "Summit Life Operations (Pty) Ltd",
+      tenantId: "tenant-nexus-group",
+      name: "Nexus Life Operations",
+      legalName: "Nexus Life Operations (Pty) Ltd",
       type: "subsidiary",
       industry: "Operations",
       country: "South Africa",
@@ -92,4 +92,3 @@ export const demoTenant: Tenant = {
 export function getCompanyById(companyId: string) {
   return demoTenant.companies.find((company) => company.id === companyId);
 }
-
