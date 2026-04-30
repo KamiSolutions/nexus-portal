@@ -14,6 +14,24 @@ Built as a single scalable codebase running across **Android, iOS, and Web** usi
 
 ---
 
+## 🧪 Prototype Status
+
+This project is currently a frontend prototype using mock data.
+
+The goal of this version is to demonstrate:
+
+- UI/UX flows
+- Enterprise dashboard structure
+- Role-based navigation
+- Cross-platform architecture
+- Internal management workflows
+
+No live backend connection is required to explore the current prototype.
+
+Future versions may integrate with a real API backend.
+
+---
+
 ## ⚙️ Tech Stack
 
 TypeScript · React Native · Expo (Web + Mobile) · Expo Router · React 19 ·  
@@ -111,3 +129,4 @@ Deploy the dist/ folder.
 
 This project was originally built for an enterprise client and has been sanitised for portfolio use.
 Some business-specific logic and integrations have been abstracted or removed.
+```
